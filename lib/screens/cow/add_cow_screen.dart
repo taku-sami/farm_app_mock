@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demoapp/model/place.dart';
 
 Firestore database = Firestore.instance;
-final place = database.collection('places').getDocuments();
+List<String> sampleList = ['1', '2', '3'];
 
 class AddCowScreen extends StatefulWidget {
   @override
@@ -15,20 +15,44 @@ class _AddCowScreenState extends State<AddCowScreen> {
   String cowName;
   int cowNumber;
   int sex;
-  String place;
+  var selectedValue;
 
-  Future getData(String collection, String documentId, String field) async {
-    DocumentSnapshot docSnapshot = await Firestore.instance
-        .collection(collection)
-        .document(documentId)
-        .get();
-    Map record = docSnapshot.data;
-    return record[field];
+  final String _collection = 'places';
+  final Firestore _fireStore = Firestore.instance;
+  String dropdownValue = '1';
+
+  getData() async {
+    return await _fireStore.collection(_collection).getDocuments();
   }
+
+//  List<String> getDataFromDB() {
+//    List<String> places = [];
+//
+//    getData().then((val) {
+//      int count = val.documents.length;
+//      print(count);
+//      var place;
+//
+//      if (count > 0) {
+//        for (int i = 0; i < count; i++) {
+//          print(i);
+//          place = val.documents[i].data["name"].toString();
+//          print(place);
+//          places.add(place);
+//        }
+//      } else {
+//        print("Not Found");
+//      }
+//    });
+//    print(places);
+//    print('tex');
+//    return places;
+//  }
 
   @override
   Widget build(BuildContext context) {
-    print(getData('places', 'Qzga9kjYjX2wbMZt5uV8', 'name'));
+//    print(getDataFromDB().toList());
+    print(sampleList);
     return Scaffold(
       appBar: AppBar(
         title: Text('親牛を追加'),
@@ -89,7 +113,47 @@ class _AddCowScreenState extends State<AddCowScreen> {
                   ),
                 ),
               ),
-              DropdownButton(),
+
+              StreamBuilder<QuerySnapshot>(
+                  stream: database.collection('places').snapshots(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return Text('no data');
+                    } else {
+                      List<DropdownMenuItem> places = [];
+                      for (int i = 0; i < snapshot.data.documents.length; i++) {
+                        DocumentSnapshot snap = snapshot.data.documents[i];
+                        places.add(
+                          DropdownMenuItem(
+                            child: Text(
+                              snap.data['name'],
+                            ),
+                            value: "${snap.data['name']}",
+                          ),
+                        );
+                      }
+
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text('牛舎:'),
+                          SizedBox(
+                            width: 20.0,
+                          ),
+                          DropdownButton(
+                            hint: Text('牛舎を選択してくだい'),
+                            items: places,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedValue = value;
+                              });
+                            },
+                            value: selectedValue,
+                          ),
+                        ],
+                      );
+                    }
+                  }),
               Row(
                 children: <Widget>[
                   Expanded(
@@ -140,8 +204,8 @@ class _AddCowScreenState extends State<AddCowScreen> {
                   style: TextStyle(color: Colors.white),
                 ),
               ),
-              Text('名前:$cowName 番号:$cowNumber 性別:$sex'),
-              Text('クラウド:$place'),
+              Text('名前:$cowName 番号:$cowNumber 性別:$sex 牛舎:$selectedValue'),
+//              Text('クラウド:$place'),
             ],
           ),
         ),

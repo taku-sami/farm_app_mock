@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1092563987082",
+    "firebase_url": "https://farm-note-demo.firebaseio.com",
+    "project_id": "farm-note-demo",
+    "storage_bucket": "farm-note-demo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1092563987082:android:67e05885c9fa2352379b73",
+        "android_client_info": {
+          "package_name": "com.takuyahara.demoapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1092563987082-qanrdihfkt6j3ce3sn5obcegd05af735.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBk6R4o-UgX4MySPHurYmfrN4eSBZcbOn4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1092563987082-qanrdihfkt6j3ce3sn5obcegd05af735.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

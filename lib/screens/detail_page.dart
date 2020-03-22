@@ -3,6 +3,9 @@ import 'package:timeline_list/timeline.dart';
 import 'package:timeline_list/timeline_model.dart';
 
 class DetailPage extends StatelessWidget {
+  final cow;
+  DetailPage(this.cow);
+
   final List<TimelineModel> items = [
     TimelineModel(
       Container(
@@ -90,7 +93,7 @@ class DetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('たろう'),
+        title: Text(cow.name),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -99,6 +102,7 @@ class DetailPage extends StatelessWidget {
               alignment: Alignment.center,
               height: 250.0,
               child: CircleAvatar(
+                backgroundColor: sexColor(cow.sex),
                 radius: 100.0,
                 child: Icon(
                   Icons.landscape,
@@ -111,7 +115,7 @@ class DetailPage extends StatelessWidget {
               child: Row(
                 children: <Widget>[
                   Text(
-                    'たろう',
+                    cow.name,
                     style: TextStyle(
                       fontSize: 20.0,
                     ),
@@ -139,4 +143,15 @@ class DetailPage extends StatelessWidget {
       ),
     );
   }
+}
+
+Color sexColor(int number) {
+  Color color;
+
+  if (number == 1) {
+    color = Colors.blue;
+  } else if (number == 2) {
+    color = Colors.pinkAccent;
+  }
+  return color;
 }

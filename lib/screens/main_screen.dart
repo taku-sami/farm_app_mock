@@ -1,3 +1,4 @@
+import 'package:demoapp/screens/detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demoapp/model/cow.dart';
@@ -5,23 +6,40 @@ import 'package:demoapp/model/cow.dart';
 Firestore database = Firestore.instance;
 
 class MainScreen extends StatelessWidget {
+  String selectedPlace;
+  MainScreen(this.selectedPlace);
   @override
   Widget build(BuildContext context) {
+    print(selectedPlace);
     return Container(
-      child: _buildBody(context),
+      child: _buildBody(context, selectedPlace),
     );
   }
 }
 
-Widget _buildBody(BuildContext context) {
-  return StreamBuilder(
-    stream: database.collection('cows').snapshots(),
-    builder: (context, snapshot) {
-      if (!snapshot.hasData) return LinearProgressIndicator();
+Widget _buildBody(BuildContext context, String selectedPlace) {
+  if (selectedPlace != null) {
+    return StreamBuilder(
+      stream: database
+          .collection('cows')
+          .where("place", isEqualTo: selectedPlace)
+          .snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) return LinearProgressIndicator();
 
-      return _buildList(context, snapshot.data.documents);
-    },
-  );
+        return _buildList(context, snapshot.data.documents);
+      },
+    );
+  } else {
+    return StreamBuilder(
+      stream: database.collection('cows').snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) return LinearProgressIndicator();
+
+        return _buildList(context, snapshot.data.documents);
+      },
+    );
+  }
 }
 
 Widget _buildList(BuildContext context, List snapshot) {
@@ -39,13 +57,20 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
       leading: CircleAvatar(
         backgroundColor: sexColor(cow.sex),
       ),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => DetailPage(cow),
+          ),
+        );
+      },
       title: Text(cow.number.toString()),
       subtitle: Text(cow.name),
       trailing: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text('0歳9ヶ月'),
-          Text('123日目'),
+          Text(cow.place),
         ],
       ),
     ),
@@ -62,130 +87,3 @@ Color sexColor(int number) {
   }
   return color;
 }
-
-//FlatButton(
-//onPressed: () {
-//Navigator.push(
-//context,
-//MaterialPageRoute(
-//builder: (BuildContext context) => DetailPage(),
-//),
-//);
-//},
-//child: Row(
-//crossAxisAlignment: CrossAxisAlignment.center,
-//children: <Widget>[
-//CircleAvatar(
-//child: Icon(
-//Icons.account_circle,
-//size: 40.0,
-//),
-//),
-//Padding(
-//padding: EdgeInsets.symmetric(horizontal: 5.0),
-//child: Column(
-//crossAxisAlignment: CrossAxisAlignment.start,
-//children: <Widget>[
-//Text('5963'),
-//Text('たろう'),
-//],
-//),
-//),
-//Expanded(
-//child: SizedBox(),
-//),
-//Column(
-//children: <Widget>[
-//Text('0歳9ヶ月'),
-//Text('123日目'),
-//],
-//),
-//],
-//),
-//),
-//Divider(),
-//FlatButton(
-//onPressed: () {
-//Navigator.push(
-//context,
-//MaterialPageRoute(
-//builder: (BuildContext context) => DetailPage(),
-//),
-//);
-//},
-//child: Row(
-//crossAxisAlignment: CrossAxisAlignment.center,
-//children: <Widget>[
-//CircleAvatar(
-//backgroundColor: Colors.green,
-//child: Icon(
-//Icons.account_circle,
-//size: 40.0,
-//),
-//),
-//Padding(
-//padding: EdgeInsets.symmetric(horizontal: 5.0),
-//child: Column(
-//crossAxisAlignment: CrossAxisAlignment.start,
-//children: <Widget>[
-//Text('5963'),
-//Text('たろう'),
-//],
-//),
-//),
-//Expanded(
-//child: SizedBox(),
-//),
-//Column(
-//children: <Widget>[
-//Text('0歳9ヶ月'),
-//Text('123日目'),
-//],
-//)
-//],
-//),
-//),
-//Divider(),
-//FlatButton(
-//onPressed: () {
-//Navigator.push(
-//context,
-//MaterialPageRoute(
-//builder: (BuildContext context) => DetailPage(),
-//),
-//);
-//},
-//child: Row(
-//crossAxisAlignment: CrossAxisAlignment.center,
-//children: <Widget>[
-//CircleAvatar(
-//backgroundColor: Colors.pinkAccent,
-//radius: 20.0,
-//child: Icon(
-//Icons.account_circle,
-//size: 40.0,
-//),
-//),
-//Padding(
-//padding: EdgeInsets.symmetric(horizontal: 5.0),
-//child: Column(
-//crossAxisAlignment: CrossAxisAlignment.start,
-//children: <Widget>[
-//Text('5963'),
-//Text('たろう'),
-//],
-//),
-//),
-//Expanded(
-//child: SizedBox(),
-//),
-//Column(
-//children: <Widget>[
-//Text('0歳9ヶ月'),
-//Text('123日目'),
-//],
-//)
-//],
-//),
-//),
-//Divider(),

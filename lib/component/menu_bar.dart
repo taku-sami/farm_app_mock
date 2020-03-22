@@ -7,9 +7,10 @@ import 'package:demoapp/model/place.dart';
 Firestore database = Firestore.instance;
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key key, this.title, this.selectedPlace}) : super(key: key);
 
   final String title;
+  final String selectedPlace;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -19,7 +20,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
 
   static const List<Text> _titles = <Text>[
-    Text('北側ハウス'),
+    Text(''),
     Text('メニュー'),
     Text('設定'),
   ];
@@ -32,7 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _switchScreen() {
     if (_selectedIndex == 0) {
-      return MainScreen();
+      return MainScreen(widget.selectedPlace);
     } else if (_selectedIndex == 1) {
       return Menu();
     } else if (_selectedIndex == 2) {
@@ -47,65 +48,39 @@ class _MyHomePageState extends State<MyHomePage> {
         title: _titles.elementAt(_selectedIndex),
       ),
       drawer: Drawer(
-        child: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.all(15.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 20.0),
-                  child: Row(
-                    children: <Widget>[
-                      CircleAvatar(
-                        backgroundColor: Colors.grey,
-                        radius: 20.0,
-                      ),
-                      SizedBox(
-                        width: 15.0,
-                      ),
-                      Text(
-                        '原牧場',
-                        style: TextStyle(
-                            fontSize: 20.0, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
+        child: ListView(
+          children: <Widget>[
+            DrawerHeader(
+              child: ListTile(
+                leading: CircleAvatar(
+                  backgroundColor: Colors.green,
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      '牛舎一覧',
-                      style: TextStyle(
-                          fontSize: 20.0, fontWeight: FontWeight.bold),
-                    ),
-                    Text('表示する牛舎を選択していません。'),
-                  ],
-                ),
-                Divider(),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10.0),
-                  child: Row(
-                    children: <Widget>[
-                      CircleAvatar(
-                        backgroundColor: Colors.grey,
-                        radius: 15.0,
-                      ),
-                      SizedBox(
-                        width: 15.0,
-                      ),
-                      Text('全ての牛舎'),
-                    ],
-                  ),
-                ),
-                Container(
-                  height: 200.0,
-                  child: _buildBody(context),
-                ),
-              ],
+                title: Text('原牧場'),
+              ),
             ),
-          ),
+            ListTile(
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => MyHomePage(
+                      title: 'Flutter Demo Home Page',
+                      selectedPlace: null,
+                    ),
+                  ),
+                );
+              },
+              leading: CircleAvatar(
+                backgroundColor: Colors.grey,
+              ),
+              title: Text('全ての牛舎'),
+            ),
+            Container(
+              height: 300.0,
+              child: _buildBody(context),
+            ),
+          ],
         ),
       ),
       body: _switchScreen(),
@@ -148,26 +123,33 @@ Widget _buildBody(BuildContext context) {
 Widget _buildList(BuildContext context, List snapshot) {
   return ListView(
     padding: EdgeInsets.only(top: 20.0),
-    children: snapshot.map((data) => _buildListItem(context, data)).toList(),
+    children: snapshot
+        .map(
+          (data) => _buildListItem(context, data),
+        )
+        .toList(),
   );
 }
 
 Widget _buildListItem(BuildContext context, DocumentSnapshot data) {
   final place = Place.fromSnapshot(data);
 
-  return Padding(
-    padding: EdgeInsets.symmetric(vertical: 10.0),
-    child: Row(
-      children: <Widget>[
-        CircleAvatar(
-          backgroundColor: Colors.grey,
-          radius: 15.0,
+  return ListTile(
+    onTap: () {
+      Navigator.pop(context);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (BuildContext context) => MyHomePage(
+            title: 'Flutter Demo Home Page',
+            selectedPlace: place.name,
+          ),
         ),
-        SizedBox(
-          width: 15.0,
-        ),
-        Text(place.name),
-      ],
+      );
+    },
+    leading: CircleAvatar(
+      backgroundColor: Colors.grey,
     ),
+    title: Text(place.name),
   );
 }

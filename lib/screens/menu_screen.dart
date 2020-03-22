@@ -44,7 +44,7 @@ class Menu extends StatelessWidget {
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              'a',
+                              '発情を登録します',
                               style: TextStyle(fontSize: 10.0),
                             ),
                           ],
@@ -73,7 +73,7 @@ class Menu extends StatelessWidget {
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              'b',
+                              '鼻水を登録します',
                               style: TextStyle(fontSize: 10.0),
                             ),
                           ],
@@ -102,7 +102,7 @@ class Menu extends StatelessWidget {
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              'c',
+                              '食欲不振を登録します',
                               style: TextStyle(fontSize: 10.0),
                             ),
                           ],
@@ -123,29 +123,18 @@ class Menu extends StatelessWidget {
                         width: 100.0,
                       ),
                       Expanded(
-                        child: FlatButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    AddCowScreen(),
-                              ),
-                            );
-                          },
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                '親牛の追加',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                '親牛を追加します',
-                                style: TextStyle(fontSize: 10.0),
-                              ),
-                            ],
-                          ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              '行動メニュー４',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              '行動メニュー４',
+                              style: TextStyle(fontSize: 10.0),
+                            ),
+                          ],
                         ),
                       ),
                     ],
@@ -190,7 +179,7 @@ class Menu extends StatelessWidget {
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              '親牛を追加します',
+                              '爪切りを登録します',
                               style: TextStyle(fontSize: 10.0),
                             ),
                           ],
@@ -215,11 +204,11 @@ class Menu extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              '親牛の追加',
+                              '予定メニュー２',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              '親牛を追加します',
+                              '予定メニュー２',
                               style: TextStyle(fontSize: 10.0),
                             ),
                           ],
@@ -244,11 +233,11 @@ class Menu extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              '親牛の追加',
+                              '予定メニュー３',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              '親牛を追加します',
+                              '予定メニュー３',
                               style: TextStyle(fontSize: 10.0),
                             ),
                           ],
@@ -273,11 +262,11 @@ class Menu extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              '親牛の追加',
+                              '予定メニュー４',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              '親牛を追加します',
+                              '予定メニュー４',
                               style: TextStyle(fontSize: 10.0),
                             ),
                           ],
@@ -338,11 +327,11 @@ class Menu extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              '親牛のa追加',
+                              '子牛の登録',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              '親牛を追加します',
+                              '子牛を追加します',
                               style: TextStyle(fontSize: 10.0),
                             ),
                           ],
@@ -367,11 +356,11 @@ class Menu extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              '親牛の追加',
+                              '牛メニュー２',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              '親牛を追加します',
+                              '牛メニュー２',
                               style: TextStyle(fontSize: 10.0),
                             ),
                           ],
@@ -396,11 +385,11 @@ class Menu extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              '親牛の追加',
+                              '牛メニュー３',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              '親牛を追加します',
+                              '牛メニュー３',
                               style: TextStyle(fontSize: 10.0),
                             ),
                           ],
@@ -425,11 +414,11 @@ class Menu extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              '親牛の追加',
+                              '牛メニュー４',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              '親牛を追加します',
+                              '牛メニュー４',
                               style: TextStyle(fontSize: 10.0),
                             ),
                           ],
@@ -520,11 +509,11 @@ class Menu extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              '親牛の追加',
+                              '施設メニュー２',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              '親牛を追加します',
+                              '施設メニュー２',
                               style: TextStyle(fontSize: 10.0),
                             ),
                           ],
@@ -549,11 +538,11 @@ class Menu extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              '親牛の追加',
+                              '施設メニュー３',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              '親牛を追加します',
+                              '施設メニュー３',
                               style: TextStyle(fontSize: 10.0),
                             ),
                           ],
@@ -578,11 +567,11 @@ class Menu extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              '親牛の追加',
+                              '施設メニュー４',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             Text(
-                              '親牛を追加します',
+                              '施設メニュー４',
                               style: TextStyle(fontSize: 10.0),
                             ),
                           ],
